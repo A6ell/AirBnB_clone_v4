@@ -76,7 +76,20 @@ $(document).ready(function() {
   }
 
   $('#filterButton').click(function() {
-    loadPlaces();
+    $.ajax({
+      type: 'POST',
+      url: 'http://' + window.location.hostname + ':5001/api/v1/places_search',
+      contentType: 'application/json',
+      data: JSON.stringify({ amenities: Object.keys(amenities) }),      success: function(data) {
+        $('.places article').remove(); // Remove existing articles        for (const place of data) {
+          // Create article tags to represent the filtered places
+          // (similar to the previous code)
+        }
+      },
+      error: function(err) {
+        console.log(err);
+      }
+    });
   });
 
   // Toggle functionality for Reviews
