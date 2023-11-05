@@ -1,61 +1,76 @@
 $(document).ready(function() {
   const amenities = {};
-  const states = {};
-  const cities = {};
-  let reviewsHidden = true;
+  const locations = {};
 
-  $('.amenity-list input[type="checkbox"]').on('change', function() {
-    const amenityId = $(this).data('id');
-    const amenityName = $(this).data('name');
-
-    if ($(this).is(':checked')) {
-      amenities[amenityId] = amenityName;
-    } else {
-      delete amenities[amenityId];
-    }
-  });
-
-  $('.locations input[type="checkbox"]').on('change', function() {
+  // Listen to changes on State or City checkboxes
+  $('.state-list input[type="checkbox"], .city-list input[type="checkbox"]').on('change', function() {
     const id = $(this).data('id');
     const name = $(this).data('name');
-    const type = $(this).parent().find('h2').text();
+    const type = $(this).data('type');
 
     if ($(this).is(':checked')) {
-      if (type === 'States:') {
-        states[id] = name;
-      } else {
-        cities[id] = name;
-      }
+      locations[id] = name;
     } else {
-      if (type === 'States:') {
-        delete states[id];
-      } else {
-        delete cities[id];
-      }
+      delete locations[id];
     }
+
+    updateLocationsH4();
   });
 
-  $('#toggleReviews').on('click', function() {
-    if (reviewsHidden) {
-      fetchAndDisplayReviews();
-      $('#toggleReviews').text('hide');
-      reviewsHidden = false;
+  // Update the Locations h4 tag
+  function updateLocationsH4() {
+    const locationsList = Object.values(locations).join(', ');
+    if (locationsList.length > 150) {
+      $('.locations h4').text(locationsList.substring(0, 150) + '...');
     } else {
-      hideReviews();
-      $('#toggleReviews').text('show');
-      reviewsHidden = true;
+      $('.locations h4').text(locationsList);
     }
-  });
-
-  function fetchAndDisplayReviews() {
-    // Fetch, parse, and display reviews
-    // You can use AJAX to retrieve reviews from the server
-    // and display them in the places section.
   }
 
-  function hideReviews() {
-    // Remove all Review elements from the DOM
-    const placesSection = $('.places');
-    placesSection.find('.Review').remove();
+  // Function to filter places by Amenities, Cities, and States
+  $('#filterButton').click(function() {
+    $.ajax({
+      type: 'POST',
+      url: 'http://' + window.location.hostname + ':5001/api/v1/places_search',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        amenities: Object.keys(amenities),
+        cities: Object.keys(locations),
+      }),
+      success: function(data) {
+        $('.places article').remove(); // Remove existing articles
+        for (const place of data) {
+          // Create article tags to represent the filtered places
+          // (similar to the previous code)
+        }
+      },
+      error: function(err) {
+        console.log(err);
+      }
+    });
+  });
+
+  // Toggle reviews when the span next to Reviews h2 is clicked
+  $('.reviews h2 span').on('click', function() {
+    if ($(this).text() === 'hide') {
+      $('.reviews h2').nextAll('.review').remove(); // Remove all Review elements from the DOM
+      $(this).text('show');
+    } else {
+      fetchAndDisplayReviews();
+      $(this).text('hide');
+    }
+  });
+
+  // Function to fetch and display reviews
+  function fetchAndDisplayReviews() {
+    // Fetch and parse reviews
+    // Replace this with your actual code to fetch and display reviews
+    // Example:
+    $.get('http://' + window.location.hostname + ':5001/api/v1/reviews', function(data) {
+      for (const review of data) {
+        // Create elements to display reviews
+        // (similar to the previous code)
+      }
+    });
   }
 });
