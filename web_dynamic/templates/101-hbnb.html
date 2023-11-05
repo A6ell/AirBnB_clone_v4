@@ -1,82 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../static/styles/4-common.css">
-    <link rel="stylesheet" type="text css" href="../static/styles/3-header.css">
-    <link rel="stylesheet" type="text/css" href="../static/styles/3-footer.css">
-    <link rel="stylesheet" type="text/css" href="../static/styles/6-filters.css">
-    <link type="text/css" rel="stylesheet" href="../static/styles/8-places.css">
-    <link rel="icon" href="../static/images/icon.png" />
-    <title>HBnB</title>
-  </head>
-  <body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="styles/4-common.css">
+    <link rel="stylesheet" href="styles/3-header.css">
+    <link rel="stylesheet" href="styles/3-footer.css">
+    <link rel="stylesheet" href="styles/6-filters.css">
+    <link rel="stylesheet" href="styles/100-places.css">
+    <script src="static/scripts/101-hbnb.js"></script> <!-- Import the 101-hbnb.js script -->
+</head>
+<body>
     <header>
-      <div class="logo"></div>
+        <img src="styles/images/logo.png" alt="Logo">
     </header>
-    <div class="container">
-      <section class="filters">
-        <div class="locations">
-          <h3>States</h3>
-          <h4>&nbsp;</h4>
-          <div class="popover">
-            <ul>
-              {% for state in states %}
-              <li>
-                <input type="checkbox" data-id="{{ state[0].id }}" data-name="{{ state[0].name }}" style="margin-left: 10px;">
-                <h2>{{ state[0].name }}:</h2>
-                <ul>
-                  {% for city in state[1] %}
-                  <li>
-                    <input type="checkbox" data-id="{{ city.id }}" data-name="{{ city.name }}" style="margin-left: 10px;">
-                    {{ city.name }}
-                  </li>
-                  {% endfor %}
-                </ul>
-              </li>
-              {% endfor %}
-            </ul>
-          </div>
+
+    <main>
+        <div class="container">
+            <section class="filters">
+            </section>
+            <section class="places">
+                <h1>Places</h1>
+                <article class="article">
+                    <div class="price_by_night">$100</div>
+                    <h2>Place Name 1</h2>
+                    <div class="information">
+                        <div class="max_guest">
+                            <h3>Guests</h3>
+                            <p>4</p>
+                        </div>
+                        <div class="number_rooms">
+                            <h3>Bedrooms</h3>
+                            <p>2</p>
+                        </div>
+                        <div class="number_bathrooms">
+                            <h3>Bathrooms</h3>
+                            <p>2</p>
+                        </div>
+                    </div>
+                    <div class="user">Owner: John Doe</div>
+                    <div class="description">Description: Lorem ipsum dolor sit amet.</div>
+                    <div class="amenities">
+                        <h2>Amenities</h2>
+                        <ul>
+                            <li>Pet friendly</li>
+                            <li>TV</li>
+                            <li>Wifi</li>
+                        </ul>
+                    </div>
+                    <div class="reviews">
+                        <h2>Reviews<span class="show-reviews">show</span></h2>
+                        <ul>
+                            <li>
+                                <h3>From Bob Dylan the 27th January 2017</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </article>
+            </section>
         </div>
-        <div class="amenities">
-          <h3>Amenities</h3>
-          <h4>&nbsp;</h4>
-          <div class="popover">
-            <ul>
-              {% for amenity in amenities %}
-              <li>{{ amenity.name }}</li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-        <button type="button" id="filterButton">Filter</button>
-      </section>
-      <div class="placesh1"><h1>Places</h1></div>
-      <section class="places">
-        <!-- <h1>Places</h1> -->
-        {% for place in places %}
-        <article>
-          <div class="title_box">
-            <h2>{{ place.name }}</h2>
-            <div class="price_by_night">${{ place.price_by_night }}</div>
-          </div>
-          <div class="information">
-            <div class="max_guest">{{ place.max_guest }} Guest{% if place.max_guest != 1 %}s{% endif %}</div>
-            <div class="number_rooms">{{ place.number_rooms }} Bedroom{% if place.number_rooms != 1 %}s{% endif %}</div>
-            <div class="number_bathrooms">{{ place.number_bathrooms }} Bathroom{% if place.number_bathrooms != 1 %}s{% endif %}</div>
-          </div>
-          <div class="user">
-            <b>Owner:</b> {{ place.user.first_name }} {{ place.user.last_name }}
-          </div>
-          <div class="description">
-            {{ place.description | safe }}
-          </div>
-        </article>
-        {% endfor %}
-      </section>
-    </div>
+    </main>
     <footer>
-      <p>Holberton School</p>
+        <p>Best School</p>
     </footer>
-  </body>
+</body>
 </html>
