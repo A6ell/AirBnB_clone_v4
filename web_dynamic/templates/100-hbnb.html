@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../static/styles/4-common.css?cache_id={{ cache_id }}">
+    <link rel="stylesheet" type="text css" href="../static/styles/4-common.css?cache_id={{ cache_id }}">
     <link rel="stylesheet" type="text/css" href="../static/styles/3-header.css?cache_id={{ cache_id }}">
-    <link rel="stylesheet" type="text/css" href="../static/styles/3-footer.css?cache_id={{ cache_id }}">
+    <link rel="stylesheet" type="text/css" href="../static styles/3-footer.css?cache_id={{ cache_id }}">
     <link rel="stylesheet" type="text/css" href="../static/styles/6-filters.css?cache_id={{ cache_id }}">
     <link type="text/css" rel="stylesheet" href="../static/styles/8-places.css?cache_id={{ cache_id }}">
     <link rel="icon" href="../static/images/icon.png" />
@@ -26,10 +26,14 @@
             <ul>
               {% for state in states %}
               <li>
+                <input type="checkbox" id="state_{{ state[0].id }}" name="state_{{ state[0].id }}" data-id="{{ state[0].id }}" data-name="{{ state[0].name }}">
                 <h2>{{ state[0].name }}:</h2>
                 <ul>
                   {% for city in state[1] %}
-                  <li>{{ city.name }}</li>
+                  <li>
+                    <input type="checkbox" id="city_{{ city.id }}" name="city_{{ city.id }}" data-id="{{ city.id }}" data-name="{{ city.name }}">
+                    {{ city.name }}
+                  </li>
                   {% endfor %}
                 </ul>
               </li>
