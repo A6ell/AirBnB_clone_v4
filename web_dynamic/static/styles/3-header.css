@@ -17,7 +17,7 @@ header .logo {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #cccccc;
+    background-color: #e50000 !important;
 }
 .available {
     background-color: #ff545f;
